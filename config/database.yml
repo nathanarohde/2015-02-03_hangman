@@ -1,0 +1,7 @@
+development:
+  database: hangman_development
+  adapter: postgresql
+
+test:
+  database: hangman_test
+  adapter: postgresql

@@ -1,0 +1,8 @@
+require'sinatra/activerecord'
+require'sinatra/activerecord/rake'
+
+namespace(:db) do
+  task(:log_config) do
+    require'./app'
+  end
+end

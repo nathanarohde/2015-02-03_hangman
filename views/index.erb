@@ -1,0 +1,29 @@
+<h3> Hangman </h3>
+<br>
+<% if @words.any? %>
+  <ul>
+    <% @words.each do |word| %>
+      <li><a href='word/<%= word.id %>'> <%= word.word %></a>
+        <form action='/delete_word' method='post'>
+          <input type='hidden' name='_method' value='delete'>
+          <input type='hidden' name='id' value='<%= word.id %>'>
+          <button type='submit'>Delete this word</button>
+        </form>
+      </li>
+    <% end %>
+  <ul>
+    <% else %>
+      <p> No words entered yet. </p>
+<% end %>
+
+<br>
+
+<form action='/add_word' method='post'>
+  <label for='word'>Enter a word:</label>
+  <input type='word' name='word'>
+
+  <br>
+
+  <button type='submit'>Add Word</button>
+
+</from>
