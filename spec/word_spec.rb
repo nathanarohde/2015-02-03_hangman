@@ -39,4 +39,14 @@ describe(Word) do
     end
   end
 
+  describe 'hangman_update' do
+    it 'updates hangman_counter by 1 everytime it is called' do
+      word = Word.create({:word => 'pony'})
+      word.hangman_update
+      word.hangman_update
+      expect(word.hangman_counter).to(eq(2))
+    end
+  end
+
+
 end

@@ -7,6 +7,10 @@ class Word < ActiveRecord::Base
   before_create(:set_hangman_counter)
   after_create(:convert_to_letters)
 
+  def hangman_update
+    self.hangman_counter += 1
+  end
+
   private
 
   def set_downcase
