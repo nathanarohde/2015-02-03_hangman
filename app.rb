@@ -14,8 +14,7 @@ post '/add_word' do
   @word = Word.create({:word => new_word})
   @letters_of_word = @word.word.split(//)
   @letters_of_word.each() do |letter|
-    letter.Wordletter.create({:letter => letter})
-    letter.update({:word_id => @word.id})
+    Wordletter.create({:letter => letter, :word_id => @word.id})
   end
 
   redirect '/'
@@ -23,7 +22,7 @@ end
 
 get '/word/:id' do
   @word = Word.find(params['id'])
-
+  @letter_range = ('a'..'z')
 
   erb :word
 end
@@ -31,5 +30,19 @@ end
 delete "/delete_word" do
   @word = Word.find(params['id'])
   @word.destroy()
-  redirect('/')
+  redirect'/'
+end
+
+post '/guessed_letter' do
+  @word = Word.find(params['id'])
+  @guessed_letter = params['guessed_letter']
+    @word.wordletters.each do |wordletter|
+      if wordletter.letter == @guessed_letter
+        wordletter.update({:guessed => true})
+      else
+
+      end
+    end
+
+  redirect back
 end

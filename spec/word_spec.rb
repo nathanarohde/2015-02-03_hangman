@@ -22,5 +22,5 @@ describe(Word) do
       expect(Word.all).to(eq([]))
     end
   end
-  
+
 end

@@ -1,1 +1,27 @@
 <h3> Hangman Page </h3>
+
+<br>
+
+<h4>
+<% @word.wordletters.each do |wordletter| %>
+  <% if wordletter.guessed == true %>
+    <%= wordletter.letter %>
+  <% else %>
+    _
+  <% end %>
+<% end %>
+</h4>
+
+<br>
+
+<form action='/guessed_letter' method='post'>
+  <input type='hidden' name='id' value='<%= @word.id %>'>
+  <select name='guessed_letter' id='guessed_letter'>
+    <% @letter_range.each do |guess_letter| %>
+      <option value= '<%= guess_letter %>'><%= guess_letter %></option>
+    <% end %>
+  </select>
+  <button = 'submit'> Enter guess </button>
+</form>
+<br>
+<a href='/'>Return to main page.</a>
