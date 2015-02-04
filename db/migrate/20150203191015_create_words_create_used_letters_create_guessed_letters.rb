@@ -6,7 +6,7 @@ class CreateWordsCreateUsedLettersCreateGuessedLetters < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table(:wordletters) do |t|
+    create_table(:word_letters) do |t|
       t.belongs_to :word
       t.column(:letter, :string)
       t.column(:guessed, :boolean)
@@ -14,7 +14,7 @@ class CreateWordsCreateUsedLettersCreateGuessedLetters < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table(:guessedletters) do |t|
+    create_table(:guessed_letters) do |t|
       t.belongs_to :word
       t.column(:letter, :string)
 

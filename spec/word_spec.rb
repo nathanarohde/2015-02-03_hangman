@@ -1,11 +1,11 @@
 require ('spec_helper')
 
 describe(Word) do
-  it { should have_many(:wordletters)}
+  it { should have_many(:word_letters)}
 end
 
 describe(Word) do
-  it { should have_many(:guessedletters)}
+  it { should have_many(:guessed_letters)}
 end
 
 describe(Word) do
@@ -20,6 +20,15 @@ describe(Word) do
     it 'test to make sure no instance is create when empty string is inputed' do
       word = Word.create({:word => ''})
       expect(Word.all).to(eq([]))
+    end
+  end
+
+  describe 'convert_to_letters' do
+    it 'tests to see if letters of the word are properly placed in a table' do
+      word = Word.create({:word => 'squid'})
+      new_word = []
+      word.word_letters.each{|wordletter| new_word.push(wordletter.letter)}
+      expect(new_word.join('')).to(eq('squid'))
     end
   end
 

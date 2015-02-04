@@ -10,10 +10,10 @@ RSpec.configure do |config|
     Word.all.each do |word|
       word.destroy
     end
-    Wordletter.all.each do |word_letter|
+    WordLetter.all.each do |word_letter|
       word_letter.destroy
     end
-    Guessedletter.all.each do |guessed_letter|
+    GuessedLetter.all.each do |guessed_letter|
       guessed_letter.destroy
     end
   end

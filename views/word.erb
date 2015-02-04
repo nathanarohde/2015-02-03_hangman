@@ -3,7 +3,7 @@
 <br>
 
 <h4>
-<% @word.wordletters.each do |wordletter| %>
+<% @word.word_letters.find_each do |wordletter| %>
   <% if wordletter.guessed == true %>
     <%= wordletter.letter %>
   <% else %>
@@ -18,7 +18,7 @@
   <input type='hidden' name='id' value='<%= @word.id %>'>
   <select name='guessed_letter' id='guessed_letter'>
     <% @letter_range.each do |guess_letter| %>
-      <option value= '<%= guess_letter %>'><%= guess_letter %></option>
+    <option value= '<%= guess_letter %>'><%= guess_letter %></option>
     <% end %>
   </select>
   <button = 'submit'> Enter guess </button>

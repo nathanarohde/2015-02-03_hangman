@@ -16,14 +16,14 @@ ActiveRecord::Schema.define(version: 20150203191015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "guessedletters", force: :cascade do |t|
+  create_table "guessed_letters", force: :cascade do |t|
     t.integer  "word_id"
     t.string   "letter"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "wordletters", force: :cascade do |t|
+  create_table "word_letters", force: :cascade do |t|
     t.integer  "word_id"
     t.string   "letter"
     t.boolean  "guessed"
