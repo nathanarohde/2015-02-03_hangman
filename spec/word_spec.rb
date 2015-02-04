@@ -32,4 +32,11 @@ describe(Word) do
     end
   end
 
+  describe 'set_hangman_counter' do
+    it 'tests to see if hangman counter starts at zero' do
+      word = Word.create({:word => 'penguin'})
+      expect(word.hangman_counter).to(eq(0))
+    end
+  end
+
 end

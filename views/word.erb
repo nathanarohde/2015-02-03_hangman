@@ -24,4 +24,9 @@
   <button = 'submit'> Enter guess </button>
 </form>
 <br>
+<form action='/reset_word' method='post'>
+  <input type= 'hidden' name='id' value='<%= @word.id %>'>
+  <input type='hidden' name='_method' value='patch'>
+  <button type='submit'>Reset the word.</button>
+<br>
 <a href='/'>Return to main page.</a>

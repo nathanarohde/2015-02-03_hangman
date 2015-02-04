@@ -4,6 +4,7 @@ class Word < ActiveRecord::Base
 
   validates(:word, {:presence => true})
   before_create(:set_downcase)
+  before_create(:set_hangman_counter)
   after_create(:convert_to_letters)
 
   private
@@ -17,6 +18,10 @@ class Word < ActiveRecord::Base
     letters_of_word.each do |letter|
        WordLetter.create({:letter => letter, :word_id => self.id})
      end
+  end
+
+  def set_hangman_counter
+    self.hangman_counter= 0
   end
 
 end

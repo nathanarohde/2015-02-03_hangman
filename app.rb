@@ -43,3 +43,10 @@ post '/guessed_letter' do
 
   redirect back
 end
+
+patch '/reset_word' do
+  @word = Word.find(params['id'])
+  @word.word_letters.each {|wordletter| wordletter.update({:guessed => false})}
+
+  redirect back
+end
