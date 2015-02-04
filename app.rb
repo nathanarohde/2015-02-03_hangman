@@ -32,13 +32,20 @@ end
 
 post '/guessed_letter' do
   @word = Word.find(params['id'])
-  @guessed_letter = params['guessed_letter']
+  @submitted_guessed_letter = params['guessed_letter']
+  @guessed_letter = GuessedLetter.create({:letter => @submitted_guessed_letter, :word_id => @word.id})
+
+
+  wrong_guess = 0
   @word.word_letters.each do |wordletter|
     if wordletter.letter == @guessed_letter
       wordletter.update({:guessed => true})
     else
-
+      wrong_guess += 1
     end
+
+    @word.hangman_update if wrong_guess == @word.word.length
+
   end
 
   redirect back
@@ -46,6 +53,7 @@ end
 
 patch '/reset_word' do
   @word = Word.find(params['id'])
+  @word.hangman_counter.update({:hangman_counter => 0})
   @word.word_letters.each {|wordletter| wordletter.update({:guessed => false})}
 
   redirect back
