@@ -27,4 +27,11 @@ describe 'check_guess' do
     word.reload()
     expect(word.hangman_counter).to(eq(1))
   end
+
+  it 'checks to see is guess matches any of the letters in word' do
+    word = Word.create({:word => 'apple'})
+    guessedletter = GuessedLetter.create({:letter => 'a', :word_id => word.id})
+    word.reload()
+    expect(word.hangman_counter).to(eq(0))
+  end
 end
