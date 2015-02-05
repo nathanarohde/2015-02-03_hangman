@@ -41,8 +41,7 @@ end
 
 patch '/reset_word' do
   @word = Word.find(params['id'])
-  @word.hangman_counter.update({:hangman_counter => 0})
-  @word.word_letters.each {|wordletter| wordletter.update({:guessed => false})}
+  @word.word_reset
 
   redirect back
 end

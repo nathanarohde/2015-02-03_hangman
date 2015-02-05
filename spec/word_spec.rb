@@ -48,5 +48,22 @@ describe(Word) do
     end
   end
 
+  describe 'word_reset' do
+    it 'checks to see if hangman counter is reset' do
+      word = Word.create({:word => 'reset'})
+      word.hangman_update
+      word.hangman_update
+      word.word_reset
+      expect(word.hangman_counter).to(eq(0))
+    end
+
+    it 'checks to see if guessed values are destroyed' do
+      word = Word.create({:word => 'destroy'})
+      guess = GuessedLetter.create({:letter =>'a', :word_id => word.id})
+      word.word_reset
+      expect(GuessedLetter.all).to(eq([]))
+    end
+  end
+
 
 end

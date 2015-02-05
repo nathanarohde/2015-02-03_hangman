@@ -12,6 +12,14 @@ class Word < ActiveRecord::Base
     self.save
   end
 
+  def word_reset
+    self.hangman_counter = 0
+    self.save
+
+    self.word_letters.each {|correct_letter| correct_letter.update({:guessed => false})}
+    self.guessed_letters.each {|guessed_letter| guessed_letter.destroy}
+  end
+
   private
 
   def set_downcase
