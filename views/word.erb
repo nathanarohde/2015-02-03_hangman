@@ -1,35 +1,41 @@
 <h3> Hangman Page </h3>
 
-<br>
-<%= @word.hangman_counter %>
-<br>
+<% if @word.hangman_counter <= 6 %>
+  <br>
+  <%= @word.hangman_counter %>
+  <br>
 
-<h4>
-<% @word.word_letters.find_each do |wordletter| %>
-  <% if wordletter.letter == ' ' %>
-    &nbsp;
-  <% else %>
-    <% if wordletter.guessed == true %>
-      <%= wordletter.letter %>
-      <% else %>
-      _
+  <h4>
+  <% @word.word_letters.find_each do |wordletter| %>
+    <% if wordletter.letter == ' ' %>
+      &nbsp;
+    <% else %>
+      <% if wordletter.guessed == true %>
+        <%= wordletter.letter %>
+        <% else %>
+        _
+      <% end %>
     <% end %>
   <% end %>
+  </h4>
+
+  <br>
+
+  <form action='/guessed_letter' method='post'>
+    <input type='hidden' name='id' value='<%= @word.id %>'>
+    <select name='guessed_letter' id='guessed_letter'>
+      <% @letter_range.each do |guess_letter| %>
+      <option value= '<%= guess_letter %>'><%= guess_letter %></option>
+      <% end %>
+    </select>
+    <button = 'submit'> Enter guess </button>
+  </form>
+  <br>
+
+<% else %>
+  <p> You have failed at hangman.  Your cold bloated bug eaten corspe dangles on it noose being pushed around gently by a cool breeze. </p>
 <% end %>
-</h4>
 
-<br>
-
-<form action='/guessed_letter' method='post'>
-  <input type='hidden' name='id' value='<%= @word.id %>'>
-  <select name='guessed_letter' id='guessed_letter'>
-    <% @letter_range.each do |guess_letter| %>
-    <option value= '<%= guess_letter %>'><%= guess_letter %></option>
-    <% end %>
-  </select>
-  <button = 'submit'> Enter guess </button>
-</form>
-<br>
 <form action='/reset_word' method='post'>
   <input type= 'hidden' name='id' value='<%= @word.id %>'>
   <input type='hidden' name='_method' value='patch'>

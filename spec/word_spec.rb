@@ -9,10 +9,20 @@ describe(Word) do
 end
 
 describe(Word) do
-  describe 'set_downcase' do
+  describe 'set_variables' do
     it 'tests to see if word is downcase when created' do
       word = Word.create({:word =>'POTATO'})
       expect(word.word).to(eq('potato'))
+    end
+
+    it 'tests to see the initial value of alive' do
+      word = Word.create({:word =>'alive is true'})
+      expect(word.alive).to(eq(true))
+    end
+
+    it 'tests to see the initial value of victory' do
+      word = Word.create({:word =>'victory is false'})
+      expect(word.victory).to(eq(false))
     end
   end
 
