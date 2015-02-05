@@ -9,6 +9,7 @@ class Word < ActiveRecord::Base
 
   def hangman_update
     self.hangman_counter += 1
+    self.save
   end
 
   private

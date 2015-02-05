@@ -13,8 +13,18 @@ end
 
 describe 'validate_guessedletter_is_new' do
   it 'test to see if guessed letter is a new entry' do
-    guessedletter1 = GuessedLetter.create({:letter => 'a'})
-    guessedletter2 = GuessedLetter.create({:letter => 'a'})
+    word = Word.create({:word => 'a'})
+    guessedletter1 = GuessedLetter.create({:letter => 'a', :word_id => word.id})
+    guessedletter2 = GuessedLetter.create({:letter => 'a', :word_id => word.id})
     expect(guessedletter2).not_to be_valid
+  end
+end
+
+describe 'check_guess' do
+  it 'checks to see is guess matches any of the letters in word' do
+    word = Word.create({:word => 'foo'})
+    guessedletter = GuessedLetter.create({:letter => 'a', :word_id => word.id})
+    word.reload()
+    expect(word.hangman_counter).to(eq(1))
   end
 end

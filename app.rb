@@ -35,19 +35,6 @@ post '/guessed_letter' do
   @submitted_guessed_letter = params['guessed_letter']
   @guessed_letter = GuessedLetter.create({:letter => @submitted_guessed_letter, :word_id => @word.id})
 
-
-  wrong_guess = 0
-  @word.word_letters.each do |wordletter|
-    if wordletter.letter == @guessed_letter
-      wordletter.update({:guessed => true})
-    else
-      wrong_guess += 1
-    end
-
-    @word.hangman_update if wrong_guess == @word.word.length
-
-  end
-
   redirect back
 end
 
