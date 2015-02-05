@@ -25,9 +25,8 @@ end
 
 delete "/delete_word" do
   @word = Word.find(params['id'])
-  @word.word_letters.each {|letter| letter.destroy}
-  @word.guessed_letters.each {|letter| letter.destroy}
-  @word.destroy
+  @word.delete_word
+
   redirect'/'
 end
 

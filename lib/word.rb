@@ -3,6 +3,8 @@ class Word < ActiveRecord::Base
   has_many :word_letters
 
   validates(:word, {:presence => true})
+  validates :word, format: { with: /\A[a-zA-Z]+\z/,
+    message: "only allows letters" }
   before_create(:set_downcase)
   before_create(:set_hangman_counter)
   after_create(:convert_to_letters)
@@ -18,6 +20,12 @@ class Word < ActiveRecord::Base
 
     self.word_letters.each {|correct_letter| correct_letter.update({:guessed => false})}
     self.guessed_letters.each {|guessed_letter| guessed_letter.destroy}
+  end
+
+  def delete_word
+    self.word_letters.each {|letter| letter.destroy}
+    self.guessed_letters.each {|letter| letter.destroy}
+    self.destroy
   end
 
   private

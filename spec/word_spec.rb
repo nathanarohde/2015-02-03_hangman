@@ -63,7 +63,37 @@ describe(Word) do
       word.word_reset
       expect(GuessedLetter.all).to(eq([]))
     end
+
+    it 'checks to see if word letters values set false' do
+      word = Word.create({:word => 'false'})
+      guess = GuessedLetter.create({:letter =>'a', :word_id => word.id})
+      word.word_reset
+      expect(word.word_letters.any?{|check| check==true}).to(eq(false))
+    end
+
   end
+
+  describe 'delete_word' do
+    it 'checks to see if delete word destroys a word and not othe contents of class' do
+      word = Word.create({:word => 'delete'})
+      guess = GuessedLetter.create({:letter =>'a', :word_id => word.id})
+      word2 = Word.create({:word => 'notme'})
+      guess2 = GuessedLetter.create({:letter =>'n', :word_id => word2.id})
+      word.delete_word
+      expect(Word.all.any?{|check_for_word| check_for_word==word}).to(eq(false))
+      expect(Word.all.any?{|check_for_word2| check_for_word2==word2}).to(eq(true))
+    end
+
+    it 'checks to see if delete word destroys a word and not othe contents of class' do
+      word = Word.create({:word => 'abc'})
+      word2 = Word.create({:word => 'def'})
+      word.delete_word
+      expect(WordLetter.all).to(eq(word2.word_letters))
+    end
+
+  end
+
+
 
 
 end
