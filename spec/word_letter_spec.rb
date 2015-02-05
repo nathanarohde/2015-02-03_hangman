@@ -9,4 +9,9 @@ describe '#before_create_guessed' do
     wordletter = WordLetter.create({:letter => 's'})
     expect(wordletter.guessed).to(eq(false))
   end
+
+  it 'checks to see if variable guessed is true for spaces' do
+    wordletter = WordLetter.create({:letter => ' '})
+    expect(wordletter.guessed).to(eq(true))
+  end
 end

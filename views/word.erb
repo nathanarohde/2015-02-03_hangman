@@ -6,10 +6,14 @@
 
 <h4>
 <% @word.word_letters.find_each do |wordletter| %>
-  <% if wordletter.guessed == true %>
-    <%= wordletter.letter %>
+  <% if wordletter.letter == ' ' %>
+    &nbsp;
   <% else %>
-    _
+    <% if wordletter.guessed == true %>
+      <%= wordletter.letter %>
+      <% else %>
+      _
+    <% end %>
   <% end %>
 <% end %>
 </h4>

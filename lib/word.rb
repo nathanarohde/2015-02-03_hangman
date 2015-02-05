@@ -3,8 +3,8 @@ class Word < ActiveRecord::Base
   has_many :word_letters
 
   validates(:word, {:presence => true})
-  validates :word, format: { with: /\A[a-zA-Z]+\z/,
-    message: "only allows letters" }
+  validates :word, format: { with: /\A[a-zA-Z\s]+\z/, }
+  # /s allows character set to include spaces
   before_create(:set_downcase)
   before_create(:set_hangman_counter)
   after_create(:convert_to_letters)
@@ -18,7 +18,9 @@ class Word < ActiveRecord::Base
     self.hangman_counter = 0
     self.save
 
-    self.word_letters.each {|correct_letter| correct_letter.update({:guessed => false})}
+    self.word_letters.each() do |correct_letter|
+      correct_letter.update({:guessed => false}) unless (correct_letter == ' ')
+    end
     self.guessed_letters.each {|guessed_letter| guessed_letter.destroy}
   end
 
