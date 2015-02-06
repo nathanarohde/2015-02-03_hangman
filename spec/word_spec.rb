@@ -41,7 +41,7 @@ describe(Word) do
       word = Word.create(:word => '43209253498970432984')
       expect(Word.all).to(eq([]))
     end
-    
+
   end
 
   describe 'convert_to_letters' do
@@ -135,5 +135,15 @@ describe(Word) do
       expect(word.victory).to(eq(true))
     end
   end
+
+  describe 'hangman_stage' do
+    it 'returns text based on what stage hangman is at' do
+      word = Word.create({:word => 'hangman stage'})
+      word.hangman_update
+      word.hangman_update
+      expect(word.hangman_stage).to(eq("A smiley face with a torso twists in the wind."))
+    end
+  end
+
 
 end
