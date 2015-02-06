@@ -18,9 +18,22 @@ end
 
 get '/word/:id' do
   @word = Word.find(params['id'])
+  if @word.alive == false
+    erb :death
+  elsif @word.victory == true
+    erb :victory
+  else
   @letter_range = ('a'..'z')
-
   erb :word
+  end
+
+end
+
+patch '/reset_word' do
+  @word = Word.find(params['id'])
+  @word.word_reset
+
+  redirect back
 end
 
 delete "/delete_word" do
@@ -43,11 +56,4 @@ post '/guessed_letter' do
     redirect back
   end
 
-end
-
-patch '/reset_word' do
-  @word = Word.find(params['id'])
-  @word.word_reset
-
-  redirect back
 end

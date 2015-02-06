@@ -1,3 +1,8 @@
+<br>
+<% @word.word_letters.find_each do |wordletter| %>
+  <%= wordletter.letter %>
+<% end %>
+
 <h4>YOU HAVE WON! </h4>
 
 <p> Your glorious skills have brought the ephemeral sensation of victory as you inch ever closer to death. </p>
