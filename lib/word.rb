@@ -2,7 +2,8 @@ class Word < ActiveRecord::Base
   has_many :guessed_letters
   has_many :word_letters
 
-  validates(:word, {:presence => true})
+  validates :word, {:presence => true} 
+  validates :word, length: { maximum: 40 }
   validates :word, format: { with: /\A[a-zA-Z\s]+\z/, }
   # /s allows character set to include spaces
   before_create(:set_variables)

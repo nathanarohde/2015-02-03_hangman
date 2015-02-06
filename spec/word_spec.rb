@@ -27,10 +27,21 @@ describe(Word) do
   end
 
   describe 'validate_word' do
-    it 'test to make sure no instance is create when empty string is inputed' do
+    it 'tests to make sure no instance is create when empty string is inputed' do
       word = Word.create({:word => ''})
       expect(Word.all).to(eq([]))
     end
+
+    it 'tests to make sure no instance of over 40 characters can be inputed' do
+      word = Word.create({:word => 'this is a long rambling string of characters'})
+      expect(Word.all).to(eq([]))
+    end
+
+    it 'tests to make sure that characters other than letter or spaces are not accpteded' do
+      word = Word.create(:word => '43209253498970432984')
+      expect(Word.all).to(eq([]))
+    end
+    
   end
 
   describe 'convert_to_letters' do
