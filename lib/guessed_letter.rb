@@ -9,7 +9,12 @@ class GuessedLetter < ActiveRecord::Base
   def check_guess
 
     word.word_letters.each { |correct_letter| correct_letter.update({:guessed => true}) if (correct_letter.letter == self.letter)}
-    word.hangman_update unless word.word.split(//).any?{|check| check == self.letter }
+
+    if word.word.split(//).any?{|check| check == self.letter }
+      word.has_won
+    else
+      word.hangman_update
+    end
 
   end
 

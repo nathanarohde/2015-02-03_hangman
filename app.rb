@@ -34,8 +34,15 @@ post '/guessed_letter' do
   @word = Word.find(params['id'])
   @submitted_guessed_letter = params['guessed_letter']
   @guessed_letter = GuessedLetter.create({:letter => @submitted_guessed_letter, :word_id => @word.id})
+  @word.reload()
+  if @word.alive == false
+    erb :death
+  elsif @word.victory == true
+    erb :victory
+  else
+    redirect back
+  end
 
-  redirect back
 end
 
 patch '/reset_word' do

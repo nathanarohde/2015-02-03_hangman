@@ -100,10 +100,29 @@ describe(Word) do
       word.delete_word
       expect(WordLetter.all).to(eq(word2.word_letters))
     end
-
   end
 
+  describe 'is_alive' do
+    it 'becomes false if hangman reachs 6' do
+    word = Word.create({:word =>'counts no higher than six'})
+      word.hangman_update
+      word.hangman_update
+      word.hangman_update
+      word.hangman_update
+      word.hangman_update
+      word.hangman_update
+      expect(word.alive).to(eq(false))
+    end
+  end
 
-
+  describe 'has_won' do
+    it 'becomes true if all letters are guessed' do
+      word = Word.create({:word => 'bob'})
+      guess = GuessedLetter.create({:letter =>'b', :word_id => word.id})
+      guess2 = GuessedLetter.create({:letter =>'o', :word_id => word.id})
+      word.reload()
+      expect(word.victory).to(eq(true))
+    end
+  end
 
 end

@@ -1,6 +1,5 @@
 <h3> Hangman Page </h3>
 
-<% if @word.hangman_counter <= 6 %>
   <br>
   <%= @word.hangman_counter %>
   <br>
@@ -9,15 +8,21 @@
   <% @word.word_letters.find_each do |wordletter| %>
     <% if wordletter.letter == ' ' %>
       &nbsp;
-    <% else %>
-      <% if wordletter.guessed == true %>
+    <% elsif wordletter.guessed == true %>
         <%= wordletter.letter %>
-        <% else %>
+    <% else %>
         _
-      <% end %>
     <% end %>
   <% end %>
   </h4>
+
+  <br>
+
+  <h5>
+  <% @word.guessed_letters.find_each do |guessedletter| %>
+    <%= guessedletter.letter %> , &nbsp;
+  <% end %>
+  </h5>
 
   <br>
 
@@ -32,13 +37,4 @@
   </form>
   <br>
 
-<% else %>
-  <p> You have failed at hangman.  Your cold bloated bug eaten corspe dangles on it noose being pushed around gently by a cool breeze. </p>
-<% end %>
-
-<form action='/reset_word' method='post'>
-  <input type= 'hidden' name='id' value='<%= @word.id %>'>
-  <input type='hidden' name='_method' value='patch'>
-  <button type='submit'>Reset the word.</button>
-<br>
 <a href='/'>Return to main page.</a>

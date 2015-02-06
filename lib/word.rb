@@ -6,16 +6,18 @@ class Word < ActiveRecord::Base
   validates :word, format: { with: /\A[a-zA-Z\s]+\z/, }
   # /s allows character set to include spaces
   before_create(:set_variables)
-  before_create(:set_hangman_counter)
   after_create(:convert_to_letters)
 
   def hangman_update
     self.hangman_counter += 1
+    self.is_alive
     self.save
   end
 
   def word_reset
     self.hangman_counter = 0
+    self.alive = true
+    self.victory = false
     self.save
 
     self.word_letters.each() do |correct_letter|
@@ -30,12 +32,26 @@ class Word < ActiveRecord::Base
     self.destroy
   end
 
+  def is_alive
+    self.alive = false if hangman_counter >= 6
+  end
+
+  def has_won
+    array_of_guesses = []
+      self.word_letters.each() do |letter|
+        array_of_guesses.push(letter.guessed)
+      end
+      self.victory = true if array_of_guesses.all? {|guess| guess == true}
+      self.save
+  end
+
   private
 
   def set_variables
     self.word=(word.downcase)
     self.victory = false
     self.alive = true
+    self.hangman_counter= 0
   end
 
   def convert_to_letters
@@ -43,10 +59,6 @@ class Word < ActiveRecord::Base
     letters_of_word.each do |letter|
        WordLetter.create({:letter => letter, :word_id => self.id})
      end
-  end
-
-  def set_hangman_counter
-    self.hangman_counter= 0
   end
 
 end

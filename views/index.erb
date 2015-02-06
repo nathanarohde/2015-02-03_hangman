@@ -4,12 +4,20 @@
   <ul>
     <% @words.each do |word| %>
       <li><a href='word/<%= word.id %>'> <%= word.word %></a>
+        <br>
+        <br>
         <form action='/delete_word' method='post'>
           <input type='hidden' name='_method' value='delete'>
           <input type='hidden' name='id' value='<%= word.id %>'>
           <button type='submit'>Delete this word</button>
         </form>
+        <br>
+        <form action='/reset_word' method='post'>
+          <input type='hidden' name='_method' value='patch'>
+          <input type= 'hidden' name='id' value='<%= word.id %>'>
+          <button type='submit'>Reset the word.</button>
       </li>
+      <br>
     <% end %>
   <ul>
     <% else %>
